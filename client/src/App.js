@@ -1,24 +1,38 @@
-import logo from './logo.svg';
+
+import { useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Jumbotron from "./components/Jumbotron/jumbotron";
+import Navbar from "./components/Navbar/navbar";
+import Search from "./Pages/Search";
+import Saved from "./Pages/Saved";
+import axios from "axios";
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    console.log("Test API call res below:")
+    axios
+      .get("/api/config")
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Jumbotron></Jumbotron>
+        <Navbar />
+        <Switch>
+          <Route exact path="/" component={Search}></Route>
+          <Route exact path="/search" component={Search}></Route>
+          <Route exact path="/saved" component={Saved}></Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

@@ -14,7 +14,7 @@ function ResultRow(props) {
             <div className="col-sm-4 text-right">
               <button
                 id={props.link}
-                onClick={viewLink}
+                onClick={props.viewLink}
                 className="btn btn-outline-info"
               >
                 View

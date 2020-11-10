@@ -1,7 +1,8 @@
 const express = require("express");
-
+require("dotenv").config();
 const mongoose = require("mongoose");
-const routes = require("./routes");
+const path = require("path");
+const routes = require("./controllers/booksController");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -21,6 +22,16 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks", {
   useUnifiedTopology: true,
   useCreateIndex: true,
   useFindAndModify: false,
+});
+
+const connection = mongoose.connection;
+
+connection.on("connected", () => {
+  console.log("Mongoose successfully connected.");
+});
+
+connection.on("error", (err) => {
+  console.log("Mongoose connection error: ", err);
 });
 
 app.get("*", (req, res) => {

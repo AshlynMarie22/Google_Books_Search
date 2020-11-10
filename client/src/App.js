@@ -10,7 +10,7 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    console.log("Test API call res below:")
+    console.log("Testing API call res:")
     axios
       .get("/api/config")
       .then((res) => {
@@ -24,8 +24,9 @@ function App() {
   return (
     <Router>
       <div className="App">
+      <Navbar />
         <Jumbotron></Jumbotron>
-        <Navbar />
+      
         <Switch>
           <Route exact path="/" component={Search}></Route>
           <Route exact path="/search" component={Search}></Route>

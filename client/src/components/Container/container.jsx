@@ -6,8 +6,8 @@ function Container(props) {
   return (
     <div className="container">
       <div className="row">
-        <div className="col-sm-12">
-          <table className="table table-striped">{props.children}</table>
+        <div className="card w-100">
+          <div className="card-body">{props.children}</div>
         </div>
       </div>
     </div>

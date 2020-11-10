@@ -13,6 +13,7 @@ const SavedBooks = () => {
     loadSavedBooks();
   },[]);
 
+
   const loadSavedBooks = () => {
     Axios.get("/api/books").then((res) => {
       setAllSavedBooks(res.data);
@@ -36,12 +37,13 @@ const SavedBooks = () => {
   
   return (
       <>
-    <Container><h5 className="card-title">Saved Books</h5></Container> 
+    <Container><><h5>Saved Books</h5></></Container> 
 
-              {this.state.allSavedBooks.map((book) => (
+              {allSavedBooks.map((book) => (
                   
                     <ResultRow
-                    deleteOneBook={this.deleteOneBook}
+                    deleteOneBook={deleteOneBook}
+                    viewLink={viewLink}
                     title={book.title}
                     authors={book.authors} 
                     link={book.link}

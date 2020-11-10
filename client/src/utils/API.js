@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export default {
-  getBooks: function () {
+  getBook: function () {
     return axios.get(
-      "https://www.googleapis.com/apiName/apiVersion/resourcePath?parameters"
+      `https://www.googleapis.com/apiName/apiVersion/resourcePath?parameters`
     );
-  },
+  }
 };

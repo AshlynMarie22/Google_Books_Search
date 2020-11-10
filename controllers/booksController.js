@@ -1,37 +1,31 @@
+const express = require("express");
+const router = express.Router();
 const db = require("../models");
 
-// Defining methods for the booksController
-module.exports = {
-  findAll: function(req, res) {
-    db.Book
-      .find(req.query)
-      .sort({ date: -1 })
-      .then(books => res.json(books))
-      .catch(err => res.status(422).json(err));
-  },
-  findById: function(req, res) {
-    db.Book
-      .findById(req.params.id)
-      .then(books => res.json(books))
-      .catch(err => res.status(422).json(err));
-  },
-  create: function(req, res) {
-    db.Book
-      .create(req.body)
-      .then(books => res.json(books))
-      .catch(err => res.status(422).json(err));
-  },
-  update: function(req, res) {
-    db.Book
-      .findOneAndUpdate({ _id: req.params.id }, req.body)
-      .then(books => res.json(books))
-      .catch(err => res.status(422).json(err));
-  },
-  remove: function(req, res) {
-    db.Book
-      .findById({ _id: req.params.id })
-      .then(books => books.remove())
-      .then(books => res.json(books))
-      .catch(err => res.status(422).json(err));
-  }
-};
+router.get("/api/books", (req, res) => {
+  db.Book.find({}).then((allBooks) => {
+    res.json(allBooks);
+  });
+});
+
+router.post("/api/books", (req, res) => {
+  const saveBook = {
+    title: req.body.title,
+    authors: req.body.authors,
+    description: req.body.description,
+    image: req.body.image,
+    link: req.body.link,
+  };
+  
+  db.Book.create(saveBook).then((savedBook) => {
+    res.json(savedBook);
+  });
+});
+
+router.delete("/api/books/:id", (req, res) => {
+    db.Book.findByIdAndDelete(req.params.id).then((deletedBook) => {
+      res.json(deletedBook);
+    });
+  });
+  
+  module.exports = router;

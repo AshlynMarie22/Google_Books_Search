@@ -1,23 +1,31 @@
 import React from "react";
 import Axios from "axios";
-
 // import "./style.css";
 
-function ResultRow(props) {
-  
-    const deleteBook = (event) => {
-      console.log(event.target)
-      Axios.delete(`/api/books/${event.target.id}`).then((result) => {
-        console.log(result);
-        props.loadSavedBooks();
-      }).catch((err) => {
-        console.log(err)
-      })
-    };
-    
+function SearchResult(props) {
+  const bookObject = {
+    title: props.title,
+    authors: props.authors,
+    description: props.description,
+    image: props.image,
+    link: props.link,
+  }
+
+  const saveBookToDatabase = () => {
+    Axios.post("/api/books", bookObject).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err)
+    })
+  };
+
+  const viewLink = () => {
+    window.open(props.link);
+  };
+
   return (
     <div>
-      <div key={props.id} className="card w-90">
+      <div key={props._id} className="card w-90">
         <div className="card-body">
           <div className="row">
             <div className="col-sm-8 text-left">
@@ -27,17 +35,17 @@ function ResultRow(props) {
             <div className="col-sm-4 text-right">
               <button
                 id={props.link}
-                onClick={props.viewLink}
+                onClick={viewLink}
                 className="btn btn-outline-info"
               >
                 View
               </button>
               <button
-               id={props.id}
-               onClick={deleteBook}
+              id={props.link}
+                onClick={saveBookToDatabase}
                 className="btn btn-outline-info"
               >
-                Delete
+                Save
               </button>
             </div>
           </div>
@@ -55,4 +63,4 @@ function ResultRow(props) {
   );
 }
 
-export default ResultRow;
+export default SearchResult;

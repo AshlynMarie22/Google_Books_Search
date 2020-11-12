@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import Axios from "axios";
-
 // import "./SavedBooks.css";
 import Container from "../Container/container";
 import ResultRow from "../ResultRow/ResultRow";
@@ -20,15 +18,6 @@ const SavedBooks = () => {
     });
   };
 
-  const deleteOneBook = (event) => {
-    console.log(event.target.id)
-    Axios.delete("/api/books/" + event.target.id).then((result) => {
-      console.log(result);
-      loadSavedBooks();
-    }).catch((err) => {
-      console.log(err)
-    })
-  };
 
   const viewLink = (event) => {
     window.open(event.target.id);
@@ -42,14 +31,16 @@ const SavedBooks = () => {
               {allSavedBooks.map((book) => (
                   
                     <ResultRow
-                    deleteOneBook={deleteOneBook}
+                  // deleteBook={deleteBook}
                     viewLink={viewLink}
+                    key={book._id}
                     title={book.title}
                     authors={book.authors} 
                     link={book.link}
                     id={book._id}
                     image={book.image}
                     description={book.description}
+                    loadSavedBooks={loadSavedBooks}
                 />
               ))}
               </>

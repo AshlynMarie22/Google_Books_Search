@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../models");
 
 router.get("/api/books", (req, res) => {
-  db.Book.find({}).then((allBooks) => {
+  db.Books.find({}).then((allBooks) => {
     res.json(allBooks);
   });
 });
@@ -17,13 +17,13 @@ router.post("/api/books", (req, res) => {
     link: req.body.link,
   };
   
-  db.Book.create(saveBook).then((savedBook) => {
+  db.Books.create(saveBook).then((savedBook) => {
     res.json(savedBook);
   });
 });
 
-router.delete("/api/books/:id", (req, res) => {
-    db.Book.findByIdAndDelete(req.params.id).then((deletedBook) => {
+router.delete("/api/Books/:id", (req, res) => {
+    db.Books.findByIdAndDelete(req.params.id).then((deletedBook) => {
       res.json(deletedBook);
     });
   });

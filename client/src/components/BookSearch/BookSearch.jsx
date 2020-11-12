@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import ResultsRow from "../ResultRow/ResultRow";
+import SearchResult from "../SearchResult/SearchResult";
 import Container from "../Container/container";
 import API from "../../utils/API";
+
 
 // import "./SearchCard.css";
 
@@ -32,6 +33,26 @@ const SearchCard = () => {
         console.log(err);
       });
   };
+ 
+    // const bookObject = {
+    //   title: books.volumeInfo.title,
+    //   authors: books.volumeInfo.authors,
+    //   description: books.volumeInfo.description,
+    //   image: books.volumeInfo.imageLinks.thumbnail,
+    //   link: books.volumeInfo.infoLink,
+    // }
+  
+    // const saveBookToDatabase = () => {
+    //   Axios.post("/api/books", bookObject).then((res) => {
+    //     console.log(res);
+    //   }).catch((err) => {
+    //     console.log(err)
+    //   })
+    // };
+  
+    // const viewLink = () => {
+    //   window.open(books.volumeInfo.infoLink);
+    // };
 
   return (
     <>
@@ -70,8 +91,8 @@ const SearchCard = () => {
                   : books.map((book) => {
                       // console.log(book);
                       return (
-                        <ResultsRow
-                          key={book.id}
+                        <SearchResult
+                          key={book._id}
                           title={book.volumeInfo.title}
                           authors={book.volumeInfo.authors}
                           image={book.volumeInfo.imageLinks.thumbnail}
